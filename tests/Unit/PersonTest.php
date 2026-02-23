@@ -12,6 +12,10 @@ it('should create a Person', function () {
 
 it('should compare two Persons for equality', function () {
     // Arrange
+    $oscar = new Person("Oscar");
+    $miguel = new Person("Miguel");
 
     // Act & Assert
+    expect($oscar === $miguel)->toBeFalse();
+    expect($miguel === $miguel)->toBeTrue();
 });

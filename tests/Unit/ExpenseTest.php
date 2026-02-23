@@ -3,7 +3,7 @@
 use App\Domain\Expense;
 use App\Domain\Person;
 
-it('creates an expense', function() {
+it('creates an expense', function () {
     // Arrange
     $oscar = new Person('Oscar');
 
@@ -16,7 +16,7 @@ it('creates an expense', function() {
     expect($expense->amount)->toBe(30.0);
 });
 
-it('add participants to an expense', function() {
+it('add participants to an expense', function () {
 
     // Arrange
     $oscar = new Person('Oscar');
@@ -26,33 +26,51 @@ it('add participants to an expense', function() {
     $expense = new Expense($oscar, 'Taxi', 30);
 
     // Act
-    $expense->addParticipants([$oscar, $miguel, $pablo]);
+    $expense->addParticipants([$miguel, $pablo, $oscar]);
+    $expense->addParticipants([$pablo]);
 
     // Assert
     expect(count($expense->participants))->toBe(3);
-
 });
 
-it('should calculate the share per person', function() {
+it('should calculate the share per person', function () {
     // Arrange
+    $oscar = new Person('Oscar');
+    $miguel = new Person('Miguel');
+    $pablo = new Person('Pablo');
 
+    $expense = new Expense($oscar, 'Taxi', 30);
+    $expense->addParticipants([$miguel, $pablo, $oscar]);
     // Act
+    $share_amount = $expense->calculateShare();
 
     // Assert
-})->todo();
+    expect($share_amount)->toBe(10.0);
+});
 
-test('a person is not a participant of an expense', function() {
+test('a person is not a participant of an expense', function () {
     // Arrange
+    $oscar = new Person('Oscar');
+    $miguel = new Person('Miguel');
+    $pablo = new Person('Pablo');
+
+    $expense = new Expense($oscar, 'Taxi', 30);
 
     // Act
+    $expense->addParticipants([$pablo]);
+    $isParticipant = in_array($miguel, $expense->participants);
 
     // Assert
-})->todo();
+    expect($isParticipant)->toBeFalse();
+});
 
-it('should throw an exception if calculating share with no participants', function() {
+it('should throw an exception if calculating share with no participants', function () {
     // Arrange
+    $oscar = new Person("Oscar");
+    $expense = new Expense($oscar, 'Taxi', 30);
 
     // Act
+    $expense->calculateShare();
 
     // Assert
-})->todo();
+})->throws(Exception::class);
