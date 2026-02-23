@@ -55,10 +55,10 @@ test('a person is not a participant of an expense', function () {
     $pablo = new Person('Pablo');
 
     $expense = new Expense($oscar, 'Taxi', 30);
-    $expense->addParticipants([$miguel, $pablo]);
 
     // Act
-    $isParticipant = in_array($oscar, $expense->participants);
+    $expense->addParticipants([$pablo]);
+    $isParticipant = in_array($miguel, $expense->participants);
 
     // Assert
     expect($isParticipant)->toBeFalse();
