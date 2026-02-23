@@ -26,11 +26,10 @@ it('add participants to an expense', function() {
     $expense = new Expense($oscar, 'Taxi', 30);
 
     // Act
-    $expense->addParticipants([$miguel, $pablo]);
-    $expense->addParticipants([$pablo]);
+    $expense->addParticipants([$oscar, $miguel, $pablo]);
 
     // Assert
-    expect(count($expense->participants))->toBe(2);
+    expect(count($expense->participants))->toBe(3);
 
 });
 
