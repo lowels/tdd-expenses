@@ -2,6 +2,8 @@
 
 namespace App\Domain;
 
+use Exception;
+
 class Expense
 {
     public array $participants = [];
@@ -15,5 +17,18 @@ class Expense
                 $this->participants[] = $participant;
             }
         }
+    }
+
+    public function calculateShare(): float
+    {
+        $num_participants = count($this->participants);
+
+        if ($num_participants === 0) {
+            throw new Exception("To calculate the share is needed at least one participant");
+        }
+
+        $share = $this->amount / $num_participants;
+
+        return $share;
     }
 }

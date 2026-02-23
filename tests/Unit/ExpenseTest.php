@@ -35,11 +35,18 @@ it('add participants to an expense', function () {
 
 it('should calculate the share per person', function () {
     // Arrange
+    $oscar = new Person('Oscar');
+    $miguel = new Person('Miguel');
+    $pablo = new Person('Pablo');
 
+    $expense = new Expense($oscar, 'Taxi', 30);
+    $expense->addParticipants([$miguel, $pablo, $oscar]);
     // Act
+    $share_amount = $expense->calculateShare();
 
     // Assert
-})->todo();
+    expect($share_amount)->toBe(10.0);
+});
 
 test('a person is not a participant of an expense', function () {
     // Arrange
@@ -51,8 +58,11 @@ test('a person is not a participant of an expense', function () {
 
 it('should throw an exception if calculating share with no participants', function () {
     // Arrange
+    $oscar = new Person("Oscar");
+    $expense = new Expense($oscar, 'Taxi', 30);
 
     // Act
+    $expense->calculateShare();
 
     // Assert
-})->todo();
+})->throws(Exception::class);
