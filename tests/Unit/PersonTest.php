@@ -16,6 +16,6 @@ it('should compare two Persons for equality', function () {
     $miguel = new Person("Miguel");
 
     // Act & Assert
-    expect($oscar === $miguel)->toBe(false);
-    expect($miguel === $miguel)->toBe(true);
+    expect($oscar === $miguel)->toBeFalse();
+    expect($miguel === $miguel)->toBeTrue();
 });
