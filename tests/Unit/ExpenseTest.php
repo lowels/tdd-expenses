@@ -50,11 +50,19 @@ it('should calculate the share per person', function () {
 
 test('a person is not a participant of an expense', function () {
     // Arrange
+    $oscar = new Person('Oscar');
+    $miguel = new Person('Miguel');
+    $pablo = new Person('Pablo');
+
+    $expense = new Expense($oscar, 'Taxi', 30);
+    $expense->addParticipants([$miguel, $pablo]);
 
     // Act
+    $isParticipant = in_array($oscar, $expense->participants);
 
     // Assert
-})->todo();
+    expect($isParticipant)->toBeFalse();
+});
 
 it('should throw an exception if calculating share with no participants', function () {
     // Arrange
