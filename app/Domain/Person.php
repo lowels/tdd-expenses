@@ -8,4 +8,9 @@ class Person
     {
     }
 
+    public function equals(Person $other): bool
+    {
+        return $this->name === $other->name;
+    }
+
 }
